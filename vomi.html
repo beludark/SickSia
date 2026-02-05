@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pour ma Princesse</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Sans+KR:wght@400;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffe6fa;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ffe6fa 100%);
+            font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
+            overflow-x: hidden;
+            text-align: center;
+            padding-bottom: 50px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
+            max-width: 90%;
+            width: 450px;
+            position: relative;
+            z-index: 10;
+            border: 4px solid #fff;
+            margin-top: 20px;
+        }
+
+        /* Bouton de langue (Style secondaire discret) */
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            border: 2px solid #ffb7b2;
+            border-radius: 20px;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #ff8fab;
+            transition: all 0.3s;
+        }
+        
+        h1 {
+            font-family: 'Fredoka One', 'Noto Sans KR', cursive;
+            color: #ff8fab;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px #fff;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+        
+        @media (max-width: 400px) {
+            h1 { font-size: 1.5em; white-space: normal; }
+        }
+
+        .crown {
+            font-size: 70px;
+            animation: float 3s ease-in-out infinite;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        p {
+            color: #888;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* --- STYLE UNIFIÉ DES BOUTONS --- */
+        .btn {
+            background-color: #ffb7b2; /* Rose saumon doux */
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Fredoka One', 'Noto Sans KR', cursive;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 5px 15px rgba(255, 183, 178, 0.5);
+            width: 100%;
+            margin-bottom: 15px;
+            
+            /* Propriétés pour que les liens (<a>) ressemblent aux boutons (<button>) */
+            display: inline-block;
+            text-decoration: none;
+            box-sizing: border-box; 
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            background-color: #ff9e99; /* Un peu plus foncé au survol */
+            color: white;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* --- SECTION CACHÉE --- */
+        #bonusSection {
+            display: none;
+            animation: fadeIn 1s ease-in-out;
+            margin-top: 30px;
+            border-top: 2px dashed #ffebf0;
+            padding-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Barre de chargement */
+        .loading-area {
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .loading-label {
+            font-size: 0.9em;
+            color: #ff8fab;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+            text-align: center;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #ffeef2;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffb7b2, #ff9aa2);
+            width: 0%;
+            border-radius: 15px;
+            animation: charging 4s ease-in-out infinite;
+        }
+        @keyframes charging {
+            0% { width: 10%; }
+            50% { width: 60%; }
+            100% { width: 100%; }
+        }
+
+        /* Distributeur d'amour */
+        .love-dispenser {
+            background: #fff0f5;
+            padding: 20px 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        .love-text {
+            color: #ff6b81;
+            font-weight: bold;
+            min-height: 1.5em;
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+
+        .message-secret {
+            margin-bottom: 20px;
+            color: #ff6b81;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff6b81;
+            font-size: 20px;
+            animation: fly 4s linear forwards;
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        @keyframes fly {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="lang-switch" onclick="toggleLanguage()" id="langBtn">한국어</button>
+
+        <div class="crown">👑</div>
+        
+        <h1 id="title">La Princesse du Vomi</h1>
+        
+        <p id="mainText">
+            Même malade, tu restes la plus belle. Repose-toi bien ma chérie. Le trône t'attend quand ça ira mieux.
+        </p>
+
+        <button class="btn" onclick="soigner()" id="actionBtn">Recevoir un bisou magique</button>
+        
+        <div id="bonusSection">
+            
+            <div class="message-secret" id="secret">
+                Je pense très fort à toi ❤️
+            </div>
+
+            <div class="loading-area">
+                <span class="loading-label" id="loadText">Rechargement de l'énergie... 🔋</span>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="love-dispenser">
+                <button class="btn" onclick="newReason()" id="reasonBtn">Pourquoi je t'aime ? 🎲</button>
+                <div class="love-text" id="reasonDisplay">...</div>
+            </div>
+
+            <a href="#" class="btn" id="waBtn" target="_blank">🚑 Contacter mon infirmier</a>
+        </div>
+
+    </div>
+
+    <script>
+        // ==========================================================
+        // CONFIGURATION DU NUMÉRO
+        // ==========================================================
+        const myPhoneNumber = "33777755193"; 
+        // ==========================================================
+
+
+        const content = {
+            fr: {
+                btnLabel: "한국어",
+                title: "La Princesse du Vomi",
+                text: "Même malade, tu restes la plus belle. Repose-toi bien ma chérie. Le trône t'attend quand ça ira mieux.",
+                action: "Recevoir un bisou magique",
+                secret: "Je pense très fort à toi ❤️",
+                load: "Rechargement de l'énergie... 🔋",
+                reasonBtn: "Pourquoi je t'aime ? 🎲",
+                waBtn: "🚑 Contacter mon infirmier",
+                waMsg: "Mon chéri, j'ai besoin de ton médicament magique ^^",
+                reasons: [
+                    "Parce que tu es la plus gentille",
+                    "Pour ton joli visage",
+                    "Parce que tu es courageuse",
+                    "J'aime ta façon de rire",
+                    "Juste parce que c'est toi",
+                    "Parce que tu rends mes journées meilleures"
+                ]
+            },
+            kr: {
+                btnLabel: "Français",
+                title: "나의 구토 공주님",
+                text: "아파도 자기는 세상에서 제일 예뻐. 푹 쉬어 내 사랑. 다 나으면 왕좌가 기다리고 있어.",
+                action: "마법의 뽀뽀 받기",
+                secret: "너를 정말 많이 생각하고 있어 ❤️",
+                load: "에너지 충전 중... 🔋",
+                reasonBtn: "내가 널 사랑하는 이유 🎲",
+                waBtn: "🚑 내 전담 간호사 부르기",
+                waMsg: "내 사랑, 네 마법의 약이 필요해 ^^",
+                reasons: [
+                    "네가 가장 착하니까",
+                    "네 예쁜 얼굴 때문에",
+                    "네가 용감하니까",
+                    "네 웃는 모습이 좋아",
+                    "그냥 네가 너니까",
+                    "네가 내 하루를 더 좋게 만들어 주니까"
+                ]
+            }
+        };
+
+        let currentLang = 'fr';
+
+        updateLink();
+
+        function toggleLanguage() {
+            currentLang = (currentLang === 'fr') ? 'kr' : 'fr';
+            updateContent();
+            updateLink();
+        }
+
+        function updateLink() {
+            const message = encodeURIComponent(content[currentLang].waMsg);
+            const link = `https://wa.me/${myPhoneNumber}?text=${message}`;
+            document.getElementById('waBtn').href = link;
+        }
+
+        function updateContent() {
+            const t = content[currentLang];
+            document.getElementById('langBtn').innerText = t.btnLabel;
+            document.getElementById('title').innerText = t.title;
+            document.getElementById('mainText').innerText = t.text;
+            document.getElementById('actionBtn').innerText = t.action;
+            document.getElementById('secret').innerText = t.secret;
+            document.getElementById('loadText').innerText = t.load;
+            document.getElementById('reasonBtn').innerText = t.reasonBtn;
+            document.getElementById('waBtn').innerText = t.waBtn;
+            document.getElementById('reasonDisplay').innerText = "...";
+        }
+
+        function soigner() {
+            document.getElementById('bonusSection').style.display = 'block';
+            document.getElementById('actionBtn').style.display = 'none';
+            createHearts();
+        }
+
+        function newReason() {
+            const list = content[currentLang].reasons;
+            const random = list[Math.floor(Math.random() * list.length)];
+            document.getElementById('reasonDisplay').innerText = random;
+        }
+
+        function createHearts() {
+            const container = document.body;
+            // Emojis standards qui s'afficheront en style Apple sur iPhone
+            const emojis = ['❤️', '💖', '🌸', '✨', '💊', '👑']; 
+            for (let i = 0; i < 40; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = '100vh';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                container.appendChild(heart);
+                setTimeout(() => { heart.remove(); }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>
